@@ -13,10 +13,14 @@ main {
 }
 
 .snippet-date {
-	margin-bottom: 1rem;
+	margin-bottom: 2rem;
 }
 
 .source-code > .highlight  {
 	padding:  1rem;
 	margin-bottom: 1rem;
+}
+
+.comment-list {
+	margin-bottom: 2rem;
 }

@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 {% load pygmentize %}
+{% load django_bootstrap5 %}
 
 {% block extraheader %}
 <style> {% pygments_css %} </style>
 {% endblock %}
 
 {% block main %}
-<h2>{{ snippet.title }} by {{ snippet_created_by.username}} </h2>
+<h2>{{ snippet.title }} by {{ snippet.created_by }} </h2>
 
 <div class="snippet-date">
 	投稿日: {{ snippet.created_at|date:"DATETIME_FORMAT" }}
@@ -21,4 +22,25 @@
 </div>
 
 <p> {{ snippet.description }} </p>
+
+
+<div class="snippet-comment card" style="padding:2rem">
+	<h5 style="font-weight: bold;"> コメント一覧</h5>
+	<div class="comment-list">
+		{% for comment in comments %}
+			{{ comment.text }} <br>
+			<span style="font-size:x-small;">by {{comment.commented_by}} {{comment.commented_at}}<br></span>
+		{% endfor %}
+	</div>
+
+	<div class="comment-form">
+		<h5 style="font-weight: bold;">コメントを投稿する</h5>
+		<form method="post">
+			{% csrf_token %}
+			{% bootstrap_form form show_label=False%}
+			{% bootstrap_button button_type="submit" content="投稿" %}
+		</form>
+	</div>
+</div>
+
 {% endblock %}
